@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import '../CoinPage.css'
+import '../ExchangePage.css'
 
 
 const ExchangeInfo = () => {
@@ -32,14 +32,14 @@ const ExchangeInfo = () => {
     
     return (
         <div className="main-app">
-             <button onClick={() => {
+             <button className="btn btn1" onClick={() => {
            localStorage.clear()
            window.location.href="/"
         }}>Go back to main page</button>
         <div className="container2">
-       <p>Coin Name: {exchangeName}</p>
+       <p>Exchange Name: {exchangeName}</p>
          <p>Country: {country }</p>
-         <p>Trust Score:  {trust_score} </p>      
+         <p>Trust Score Rank:  {trust_score} </p>      
         <p>Exchange Logo: <img className="image" height="40"src={logo} alt="" /></p>
         <p>Year Established:  {yearEstablished} </p>   
         <p>Facebook: <a href={facebook}>{facebook ? "Facebook" : ""} </a></p>   

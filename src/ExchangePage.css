@@ -7,9 +7,9 @@
   color: #464141;
 }
 
-.container2 {
+/* .container2 {
   border-bottom: #fff 2px ridge;
-}
+} */
 
 .image {
 }
@@ -38,4 +38,24 @@
 .pagination > li > span {
   color: #47ccde;
   background-color: azure;
+}
+
+.btn {
+  display: block;
+  margin: 40px 0;
+  width: 200px;
+  height: 60px;
+  border: none;
+  background-color: #00a8ff;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 6px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+
+.btn1:hover {
+  transform: rotateX(15deg);
+  box-shadow: 0 15px 15px #00a8ff;
 }

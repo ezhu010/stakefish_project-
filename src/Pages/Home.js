@@ -1,18 +1,16 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom"
-
 import axios from 'axios'
 import ReactPaginate from 'react-paginate';
-import CoinInfo from './ExchangeInfo';
+
 
 const Home = () => {
-const [coinsPerPage] = useState(10);
+const [exchangePerPage] = useState(10);
  const [offset, setOffset] = useState(1);
- const [coinData, setCoinData] = useState([]);
+ const [exchangeData, setExchangeData] = useState([]);
  const [pageCount, setPageCount] = useState(0)
  
- // this function renders exchange info such as, exchange name, coin logo, and coin url 
+ // this function renders exchange info such as, exchange name, exchange logo, and exchange url 
  const renderExchangeInfo  =  (exchanges)  => {
    console.log(exchanges);
    return (
@@ -22,7 +20,7 @@ const [coinsPerPage] = useState(10);
          localStorage.setItem('exchangeLogo', exchange.image)
          localStorage.setItem('exchangeUrl', exchange.url)
          localStorage.setItem('exchangeCountry', exchange.country)
-         localStorage.setItem('exchangeTrustScore', exchange.trust_score)
+         localStorage.setItem('exchangeTrustScore', exchange.trust_score_rank)
          localStorage.setItem('exchangeYear', exchange.year_established)
          localStorage.setItem('exchangeDescription', exchange.description)
          localStorage.setItem('exchangeMediaFacebook', exchange.mediaLinks.facebook_url)
@@ -34,25 +32,25 @@ const [coinsPerPage] = useState(10);
        <p>Exchange Name: {exchange.name}</p>
        <p>Exchange Image: <img className="image" height="40"src={exchange.image} alt="" /></p>
        <p>Exchange URL: <a  target="_blank" href={exchange.url}>Trade url</a></p>
-      <p>Trust Score: {exchange.trust_score}</p>
+      <p>Trust Score Rank: {exchange.trust_score_rank}</p>
       <p>Country: {exchange.country}</p>
      </div>)
    )
  
  }
 // this function gets the social Media links of the exchange 
-const getSocialMediaLinks = (coinid) => {
-    const res =  axios.get(`https://api.coingecko.com/api/v3/exchanges/${coinid}`)
+const getSocialMediaLinks = (exchangeid) => {
+    const res =  axios.get(`https://api.coingecko.com/api/v3/exchanges/${exchangeid}`)
     return res
 }
  
 // this needs to be done first because other api calls will rely on the exchange id 
- const getCoinExchangeInfo = async () => {
+ const getExchangeInfo = async () => {
    const res = await axios.get(`https://api.coingecko.com/api/v3/exchanges`)
    const data = res.data;
    let socialMediaData = []
    let countryData = []
-   const slice = data.slice(offset - 1 , offset - 1 + coinsPerPage)
+   const slice = data.slice(offset - 1 , offset - 1 + exchangePerPage)
      for(var i = 0; i < slice.length; i++){
       await getSocialMediaLinks(slice[i].id).then(res => {
         let socialMediaObj = {}
@@ -71,8 +69,8 @@ const getSocialMediaLinks = (coinid) => {
 
    const postData =  renderExchangeInfo(slice)
 
-   setCoinData(postData)
-   setPageCount(Math.ceil(data.length / coinsPerPage))
+   setExchangeData(postData)
+   setPageCount(Math.ceil(data.length / exchangePerPage))
  }
  
  const handlePageClick = (event) => {
@@ -81,11 +79,13 @@ const getSocialMediaLinks = (coinid) => {
  };
  
  useEffect(() => {
-   getCoinExchangeInfo()
+   getExchangeInfo()
  }, [offset])
     return (
     <div className="main-app">
-     {coinData}
+      <p style={{fontSize: 40}} className="title">Main Page</p>
+      
+     {exchangeData}
      <ReactPaginate
        previousLabel={"previous"}
        nextLabel={"next"}
