@@ -7,13 +7,8 @@
   color: #464141;
 }
 
-.container {
+.container2 {
   border-bottom: #fff 2px ridge;
-}
-
-.container:hover {
-  border-bottom: #fff 2px ridge;
-  background-color: rgb(192, 192, 248);
 }
 
 .image {

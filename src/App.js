@@ -1,13 +1,18 @@
 
 import './App.css'
-import CoinInfo from './Pages/CoinInfo'
+import {BrowswerRouter as Router, Routes, Route} from "react-router-dom"
 import Home from './Pages/Home'
+import ExchangeInfo from './Pages/ExchangeInfo';
  
 function App() {
 
  return (
   <div>
-    <Home/>
+    <Routes>
+    <Route path="/" element={<Home/>}/>
+    <Route path="/exchangeInfo" element={<ExchangeInfo/>}/>
+    </Routes>
+
   </div>
  );
 }
